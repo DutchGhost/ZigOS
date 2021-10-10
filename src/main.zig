@@ -1,7 +1,8 @@
 const terminal = @import("terminal.zig");
 const Terminal = terminal.Terminal;
-const Vga = terminal.Vga;
-const Color = terminal.VGA_COLOR;
+const vga = @import("vga.zig");
+const VgaColor = vga.VgaColor;
+const Color = vga.Color;
 
 pub fn panic(msg: []const u8, error_return_trace: ?*builtin.StackTrace) noreturn {
     @setCold(true);
@@ -12,6 +13,6 @@ pub fn panic(msg: []const u8, error_return_trace: ?*builtin.StackTrace) noreturn
 
 pub fn kmain() void {
     Terminal.initialize();
-    Terminal.setColor(Vga.entry_color(Color.LIGHT_GREEN, Color.BLACK));
+    Terminal.setColor(Color{ .fg = VgaColor.LIGHT_GREEN, .bg = VgaColor.BLACK });
     Terminal.write("Hello, kernel World!\nThis is a test\n");
 }
